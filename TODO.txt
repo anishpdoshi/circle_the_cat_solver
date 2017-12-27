@@ -1,0 +1,8 @@
+todos:
+
+introduce randomness in cat movement when there are multiple optimal choices
+
+controls and stats
+
+
+event: dynamic cat (hiss)

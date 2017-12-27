@@ -1,0 +1,11 @@
+.emoji {
+  padding-left: 10px;
+  display: block;
+  float: left;
+  font-weight: normal;
+  font-family: "Apple Color Emoji","Segoe UI Emoji","NotoColorEmoji","Segoe UI Symbol","Android Emoji","EmojiSymbols";
+}
+
+/*.speedSlider {
+  margin-bottom: 20px;
+}*/
