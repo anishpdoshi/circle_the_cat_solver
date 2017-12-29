@@ -19,7 +19,7 @@ class GameBoard extends Component {
             key={`row-${i}-col-${j}`}
             handleCircleClick={() => {
               if (handleCircleClick) {
-                handleCircleClick({ row: i, col: j})
+                handleCircleClick(i, j)
               }
             }}
             mode={item.mode}

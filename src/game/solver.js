@@ -1,12 +1,5 @@
 // Create the environment and dynamics of Circle the Cat for an RL agent
-
 import { GameState, newGame, GAME_STATUS } from './game-state';
-
-// just let gs be the game state
-// TODOS - for now we'll do some relatively hefty conversion between state vector and gamestate object. We
-// need a better way of doing this going forward since this conversion will happen far more than is necessary, 
-// and ideally shouldn't happen at all.
-const sToGS = (s) => new GameState({ stateVec: s });
 
 const createAgent = () => {
 

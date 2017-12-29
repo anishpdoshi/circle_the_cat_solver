@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import GameBoard from './GameBoard';
 import { GameState, newGame, GAME_STATUS } from '../game/game-state';
 
+function toReadableHeading(status) {
+  switch (status) {
+    case GAME_STATUS.PLAYING:
+      return 'Playing Circle the Cat! Click a circle to put a barrier on it. The game ends when the cat (black circle) escapes.';
+    case GAME_STATUS.CAT_WON:
+      return 'The cat has escaped! Click \'Reset Game\' to try again.';
+    case GAME_STATUS.HUMAN_WON:
+      return 'You won!! Click \'Reset Game\' to play again.';
+  }
+}
 // Game controller
 class PlayView extends Component {
   constructor(props) {
@@ -15,15 +25,17 @@ class PlayView extends Component {
     };
   }
 
-  handleCircleClick(loc) {
-    if (this.state.gameState.getGameStatus() === GAME_STATUS.PLAYING) {
-      const newState = this.state.gameState.click(loc);
-      if (newState) {
-        newState.moveCat();
-        this.setState({
-          gameState: newState
-        });
+  handleCircleClick(row, col) {
+    if (this.state.gameState.gameStatus === GAME_STATUS.PLAYING) {
+      this.state.gameState.click(row, col);
+      this.state.gameState.updateStatus();
+      if (this.state.gameState.gameStatus === GAME_STATUS.PLAYING) {
+        this.state.gameState.moveCat(this.state.gameState.getCatChoice());  
       }
+
+      this.setState({
+        gameState: this.state.gameState
+      });
     }
   }
 
@@ -35,12 +47,12 @@ class PlayView extends Component {
   }
 
   render() {
-    const gameStatus = this.state.gameState.getGameStatus();
+    const gameStatus = this.state.gameState.gameStatus;
 
     return (
       <div>
         <div>
-          <h1>{gameStatus}</h1>
+          <h4>{toReadableHeading(gameStatus)}</h4>
           <button className='resetGame' onClick={this.handleResetGame}>Reset Game</button>
         </div>
         <GameBoard

@@ -7,10 +7,8 @@ controls and stats
 todo -better handling of start/stop/pause/reset training
 event: dynamic cat (hiss)
 prop-types
-json export/import
 container layouts
-better control view
+better control view, support for parameter setting via ui
 simplify game-state + move some logic to somewhere else
-add node server
 
-credit https://github.com/Semantic-Org/Semantic-UI-React/issues/2103 for upload button
+decay e value in e-greedy action selection over time

@@ -46,12 +46,17 @@ class Circle extends Component {
   render() {
     const { 
       index,
+      mode,
       handleCircleClick
     } = this.props;
 
+    const isClickable = !(mode === 'cat' || mode === 'fill');
+    const circleClass = `circle ${isClickable ? 'clickable' : 'unclickable'}`;
+
     return (
-      <svg x={`${50 * index}`} height='50' width='50' onClick={handleCircleClick}>
+      <svg x={`${50 * index}`} height='50' width='50' onClick={() => { if (isClickable) { handleCircleClick(); }}}>
         <circle
+          className={circleClass}
           cx='25'
           cy='25'
           r='20'

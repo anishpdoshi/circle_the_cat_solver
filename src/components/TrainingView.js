@@ -68,22 +68,26 @@ class TrainingView extends Component {
     const trainingInterval = setInterval(() => {
       const { agent, gameState } = this.state;
 
-      const action = agent.act(gameState.toStateVector());
+      const action = agent.act(gameState.asStateVector());
       // action is the index of the tile to click
 
-      gameState.click({
-        row: Math.floor(action / 11), // javascript ??????
-        col: action % 11
-      });
-      gameState.moveCat();
+      gameState.click(
+        Math.floor(action / 11), // javascript ??????
+        action % 11
+      );
+      gameState.updateStatus();
+      if (gameState.gameStatus === GAME_STATUS.PLAYING) {
+        gameState.moveCat(gameState.getCatChoice());
+      }
       agent.learn(rewardFromGS(gameState));
       this.setState({
         agent: agent,
         gameState: gameState
       });
 
-      const isHumanWon = gameState.isHumanWon();
-      const isCatWon = gameState.isCatWon();
+      const isHumanWon = gameState.gameStatus === GAME_STATUS.HUMAN_WON;
+      const isCatWon = gameState.gameStatus === GAME_STATUS.CAT_WON;
+
       if (isHumanWon || isCatWon) {
         this.setState({
           agent: agent,
@@ -148,7 +152,7 @@ class TrainingView extends Component {
   }
 
   render() {
-    const gameStatus = this.state.gameState.getGameStatus();
+    const gameStatus = this.state.gameState.gameStatus;
 
     return (
       <div>
