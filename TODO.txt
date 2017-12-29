@@ -4,5 +4,11 @@ introduce randomness in cat movement when there are multiple optimal choices
 
 controls and stats
 
-
+todo -better handling of start/stop/pause/reset training
 event: dynamic cat (hiss)
+prop-types
+json export/import
+container layouts
+better control view
+simplify game-state + move some logic to somewhere else
+add node server

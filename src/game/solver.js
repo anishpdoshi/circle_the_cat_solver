@@ -21,21 +21,6 @@ const createAgent = () => {
 			// and in practice less cause of initial positions, but using 121 makes it easier.
 			return 121;
 		},
-		// reward: function(s, a, ns) {
-		// 	// todo -> understand why this fn is associated with the transition from s->ns and not with the states themselves
-		// 	// given that it is associated with the transition, though, assign -5 to a losing move and +5 to a winning move,
-		// 	// regardless of prior state/action taken to get to next state
-		// 	const nextGS = sToGS(ns);
-		// 	if (nextGS.isCatWon()) {
-		// 		return -5;
-		// 	} else if (nextGS.isHumanWon()) {
-		// 		return 5;
-		// 	}
-		// 	return 0;
-		// },
-		// nextStateDistribution: function(s, a) {
-
-		// },
 		allowedActions: function(s) {
 			const allowed = [];
 			const catInd = (s[s.length - 2] * 11) + s[s.length - 1];

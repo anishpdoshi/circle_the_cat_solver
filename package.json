@@ -1,8 +1,14 @@
 {
-  "name": "circle-the-cat",
+  "name": "circle-the-cat-solver",
+  "description": "Interactive, reinforcement-learning based solver for the game Circle the Cat. Includes an implementation of the game. Frontend written in React, and reinforcement learning provided by a lightly modified REINFORCEjs by Andrej Karpathy.",
   "version": "1.0.0",
   "main": "index.js",
+  "author": "Anish Doshi",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anishpdoshi/circle_the_cat_solver.git"
+  },
   "engines": {
     "node": "8.1.4"
   },

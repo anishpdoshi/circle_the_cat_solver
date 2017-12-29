@@ -156,7 +156,6 @@ GameState.prototype.moveCat = function() {
 	const choice = choicesByMinEdgeDistance[0];
 
 	// // best strat -> do above, but if there are multiple optimal choices, randomly select one
-	// // also todo -> this code is pretty ridiculous lmao fix it
 	// const choicesWithMinEdgeDistance = choices.map((choice) => {
 	// 	return {
 	// 		choice: choice,
