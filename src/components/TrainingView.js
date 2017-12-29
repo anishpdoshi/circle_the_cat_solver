@@ -5,9 +5,35 @@ import { createAgent, rewardFromGS } from '../game/solver';
 import chunk from 'lodash-es/chunk';
 import mean from 'lodash-es/mean';
 
+import { Input, Button, Icon } from 'semantic-ui-react';
+
 // Slider for game speed
 import Slider from 'react-rangeslider';
 import 'react-rangeslider/lib/index.css';
+
+function UploadButton({label, onUpload, id}) {
+  let fileInput = null;
+  // If no id was specified, generate a random one
+  const uid = id || Math.random().toString(36).substring(7);
+
+  return (
+    <span>
+      <label htmlFor={uid} className="ui icon button">
+        <i className="upload icon"></i>
+        {label}
+      </label>
+      <input type="file" id={uid}
+        style={{display: "none"}}
+        onChange={() => {
+          onUpload(fileInput.files[0]);
+        }}
+        ref={input => {
+          fileInput = input;
+        }}
+      />
+    </span>
+  );
+} 
 
 // Training controller
 class TrainingView extends Component {
@@ -19,6 +45,7 @@ class TrainingView extends Component {
     this.resetAgent = this.resetAgent.bind(this);
     this.handleSliderChange = this.handleSliderChange.bind(this);
     this.downloadAgent = this.downloadAgent.bind(this);
+    this.handleUpload = this.handleUpload.bind(this);
 
     this.state = {
       agent: createAgent(),
@@ -102,8 +129,16 @@ class TrainingView extends Component {
     }
   }
 
-  importAgent() {
-    
+  handleUpload(file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const raw = event.target.result;
+      const agentData = JSON.parse(raw);
+      this.pauseTraining();
+      this.state.agent.fromJSON(agentData);
+      this.startTraining();
+    }
+    reader.readAsText(file);
   }
 
   handleSliderChange(value) {
@@ -121,10 +156,11 @@ class TrainingView extends Component {
         <div className='container'>
           <div style={{display: 'inline-block'}}>
             <div className='trainingControls'>
-              <button className='startTraining' onClick={this.startTraining}>Train</button>
-              <button className='pause' onClick={this.pauseTraining}>Pause Training</button>
-              <button className='resetAgent' onClick={this.resetAgent}>Reset Agent</button>
-              <button className='downloadAgent' onClick={this.downloadAgent}>Download agent as JSON</button>
+              <Button className='startTraining' onClick={this.startTraining}>Train</Button>
+              <Button className='pause' onClick={this.pauseTraining}>Pause Training</Button>
+              <Button className='resetAgent' onClick={this.resetAgent}>Reset Agent</Button>
+              <Button className='downloadAgent' onClick={this.downloadAgent}>Download agent as JSON</Button>
+              <UploadButton label='Import agent from JSON' onUpload={this.handleUpload} id='jsonInput' />
               <Slider
                 min={2}
                 max={1000}
@@ -137,6 +173,7 @@ class TrainingView extends Component {
                 handleLabel='Training speed'
               />
             </div>
+            
             <GameBoard
               gameStateAsRows={this.state.gameState.getAsModedRows()}
               handleCircleClick={this.handleCircleClick}

@@ -12,3 +12,5 @@ container layouts
 better control view
 simplify game-state + move some logic to somewhere else
 add node server
+
+credit https://github.com/Semantic-Org/Semantic-UI-React/issues/2103 for upload button
