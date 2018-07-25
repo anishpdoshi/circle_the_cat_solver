@@ -7,7 +7,7 @@ For now, you'll have to run this code locally to play around with the solver. Fu
 Clone the repo,
 ```
 $ git clone https://github.com/anishpdoshi/circle_the_cat_solver.git
-$ cd circle_the_cat
+$ cd circle_the_cat_solver
 ```
 ...install dependencies,
 ```bash
